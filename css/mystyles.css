@@ -1,0 +1,118 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.site-heading-upper{
+    color: rgb(255, 255, 255);
+}
+.site-heading .site-heading-upper{
+  position: relative;
+  left: -10px; /* Moves the header 10px to the right */
+  top: -10px;
+  text-align: center; /* Keeps it centered */
+}
+.site-heading-lower{
+    font-family: serif, "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";   
+    color: rgb(212, 0, 0);  text-shadow: 1px 1px 0 #ffffff;
+}
+.site-heading .site-heading-lower{
+  font-size: 5.2rem;
+  font-weight: 100;
+  line-height: 4rem;
+}
+.site-heading .big-letter {
+    font-size: 3em; /* Make it larger */
+    position: relative; /* Enable positioning */
+    top: 0.2em; /* Align the top of the letter with the rest */
+    line-height: 1; /* Ensure proper spacing */
+    display: inline-block; /* Ensure the span behaves like a block for alignment */
+}
+  
+
+.mb-3{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
+a{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#mainNav{
+    background-color: rgba(255, 0, 0, 0.321);
+    color: white;
+    text-shadow: -1px -1px 0 rgb(253, 0, 0) ;
+}
+.navbar{
+    backdrop-filter: blur(5px);
+}
+
+body {
+    margin: 0; /* Remove default margin */
+    height: 100%; /* Allow body to grow with content */
+    position: relative; /* Enable positioning of the pseudo-element */
+    color: rgb(211, 0, 0);
+  }
+  
+  body::before {
+    content: '';
+    position: fixed; /* Fixed position for the background */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  
+    /* Background image with gradient */
+    background-image: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url(../assets/img/bg.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  
+    /* Apply blur effect */
+    filter: blur(5px);
+  
+    /* Ensure it stays behind content */
+    z-index: -1;
+  }
+  
+  .content {
+    position: relative; /* Ensure content sits above the background */
+    z-index: 1;
+    padding: 20px;
+  }
+  .icecream-wheel-button{
+    color: red;
+    background-color: white;
+    border-color: red;
+  }
+  .icecream-wheel-button:hover{
+    color: #ff78b5;
+    background-color: #7beef9;
+    border-color: #ff78b5;
+    box-shadow: 0 0px 50px 50px #02eaff2c;
+  }
+  .cta{
+    background-color: rgba(255, 0, 0, 0.321)
+  }
+  .bg-faded{
+    background-color: rgb(255, 255, 255);
+  }
+  .footer{
+    background-color: #ffffff;
+  }
+  #mainNav .navbar-brand{
+    color:#ffffff  ;  text-shadow: 1px 1px 0 rgb(212, 0, 0);
+  }
+  .social-icons {
+    display: flex;
+    gap: 15px;
+    justify-content: center; /* Centers the icons */
+    margin: 20px 0;
+  }
+  .social-icons a {
+      color: #000; /* Default color */
+      font-size: 4rem; /* Icon size */
+      text-decoration: none;
+      transition: color 0.3s; /* Smooth hover effect */
+  }
+  .social-icons a:hover {
+      color: #ff5733; /* Change color on hover */
+  }

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ice Cream Wheel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: #7de4f6;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #ff78b5, #7de4f6);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #wheel {
+      margin: 20px;
+      padding: 20px;
+      background: rgba(71, 71, 71, 0.452);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px #02eaff;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white;
+      background: hsl(335, 100%, 75%);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #4ef6ff;
+      color:hsl(335, 100%, 75%) ;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fdfdfd;
+      white-space: pre-wrap; /* Preserve newlines */
+    }
+
+    .color-sweet-cream { color: #f5deb3; } /* Light beige */
+    .color-chocolate { color: #8b4513; } /* Chocolate brown */
+    .color-cake-batter { color: #fffacd; } /* Lemon chiffon */
+    .color-strawberry { color: #ff69b4; } /* Hot pink */
+    .color-cotton-candy { color: #83fdff; } /* Light pink */
+    .color-cookie-dough { color: #d2b48c; } /* Tan */
+    .color-cheesecake { color: #ffe4c4; } /* Bisque */
+    .color-french-vanilla { color: #fff8dc; } /* Cornsilk */
+    .color-coffee { color: #6f4e37; } /* Coffee brown */
+    .color-mint { color: #98ff98; } /* Mint green */
+
+    .color-sprinkles span { font-weight: bold; color: red; }
+    .color-sprinkles span:nth-child(2) { color: orange; }
+    .color-sprinkles span:nth-child(3) { color: yellow; }
+    .color-sprinkles span:nth-child(4) { color: green; }
+    .color-sprinkles span:nth-child(5) { color: blue; }
+    .color-sprinkles span:nth-child(6) { color: purple; }
+
+    .color-gummy-bears span { font-weight: bold; color: red; }
+    .color-gummy-bears span:nth-child(2) { color: orange; }
+    .color-gummy-bears span:nth-child(3) { color: yellow; }
+    .color-gummy-bears span:nth-child(4) { color: green; }
+    .color-gummy-bears span:nth-child(5) { color: blue; }
+    .color-gummy-bears span:nth-child(6) { color: purple; }
+
+    .color-reeses { color: rgb(255, 251, 0); text-shadow: -1px -1px 0 #ff8000, 1px -1px 0 #ff8000, -1px 1px 0 #ff8000, 1px 1px 0 #ff8000; }
+    .color-oreo { color: white; text-shadow: -1px -1px 0 #003ffc, 1px -1px 0 #003ffc, -1px 1px 0 #003ffc, 1px 1px 0 #003ffc; }
+    .color-chocolate-chips { color: #5d4037; } /* Dark brown */
+    .color-nuts { color: #d2b48c; } /* Tan */
+    .color-brownie { color: #8b4513; } /* Brown */
+    .color-fudge { color: #8b4513; } /* Brown */
+    .color-caramel { color: #c68e17; } /* Caramel color */
+    .color-fruit span:nth-child(1) { color: #8b0000; } /* Dark red */
+    .color-fruit span:nth-child(2) { color: #372be2; } /* Dark blue */
+    .color-fruit span:nth-child(3) { color: #ff4500; } /* Light red */
+  </style>
+</head>
+<body>
+  <div id="wheel">
+    <h1>🍦 Ice Cream Wheel of Flavors 🍨</h1>
+    <button id="spinFlavor">Spin Flavor Wheel</button>
+    <button id="spinTopping" disabled>Spin Topping Wheel</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const flavors = [
+      "Sweet Cream",
+      "Chocolate",
+      "Cake Batter",
+      "Strawberry",
+      "Cotton Candy",
+      "Cookie Dough",
+      "Cheesecake",
+      "French Vanilla",
+      "Coffee",
+      "Mint"
+    ];
+
+    const toppings = [
+      "Sprinkles",
+      "Oreo",
+      "Reese's",
+      "Chocolate Chips",
+      "Gummy Bears",
+      "Nuts",
+      "Fruit",
+      "Brownie",
+      "Fudge",
+      "Caramel"
+    ];
+
+    const flavorColors = {
+      "Sweet Cream": "color-sweet-cream",
+      "Chocolate": "color-chocolate",
+      "Cake Batter": "color-cake-batter",
+      "Strawberry": "color-strawberry",
+      "Cotton Candy": "color-cotton-candy",
+      "Cookie Dough": "color-cookie-dough",
+      "Cheesecake": "color-cheesecake",
+      "French Vanilla": "color-french-vanilla",
+      "Coffee": "color-coffee",
+      "Mint": "color-mint"
+    };
+
+    const toppingColors = {
+      "Sprinkles": "color-sprinkles",
+      "Oreo": "color-oreo",
+      "Reese's": "color-reeses",
+      "Chocolate Chips": "color-chocolate-chips",
+      "Gummy Bears": "color-gummy-bears",
+      "Nuts": "color-nuts",
+      "Fruit": "color-fruit",
+      "Brownie": "color-brownie",
+      "Fudge": "color-fudge",
+      "Caramel": "color-caramel"
+    };
+
+    let selectedFlavor = "";
+
+    function animateSelection(options, resultDiv, callback, isTopping = false) {
+      let index = 0;
+      const totalSteps = 50; // Number of steps to simulate spinning
+      const interval = 50; // Speed of the animation in milliseconds
+      let steps = 0;
+
+      const intervalId = setInterval(() => {
+        const option = options[index];
+        const colorClass = isTopping ? toppingColors[option] : flavorColors[option];
+        resultDiv.innerHTML = `Spinning: <span class='${colorClass}'>${option}</span>`;
+
+        index = (index + 1) % options.length;
+        steps++;
+
+        // Gradually slow down
+        if (steps >= totalSteps) {
+          clearInterval(intervalId);
+          const finalChoice = options[Math.floor(Math.random() * options.length)];
+          callback(finalChoice);
+        }
+      }, interval);
+    }
+
+    document.getElementById("spinFlavor").addEventListener("click", () => {
+  const resultDiv = document.getElementById("result");
+  animateSelection(flavors, resultDiv, (finalFlavor) => {
+    selectedFlavor = finalFlavor;
+    const flavorColorClass = flavorColors[finalFlavor];
+    resultDiv.innerHTML = `Flavor: <span class='${flavorColorClass}'>${finalFlavor}</span>`;
+    
+    // Enable topping button once flavor is selected
+    document.getElementById("spinTopping").disabled = false;
+  });
+});
+
+
+document.getElementById("spinTopping").addEventListener("click", () => {
+  const resultDiv = document.getElementById("result");
+  animateSelection(toppings, resultDiv, (finalTopping) => {
+    const toppingColorClass = toppingColors[finalTopping];
+    let toppingDisplay = "";
+
+    // Rainbow color effect for Gummy Bears and Sprinkles
+    if (finalTopping === "Gummy Bears" || finalTopping === "Sprinkles") {
+      const rainbowColors = [
+        "red", "orange", "yellow", "green", "blue", "indigo", "violet"
+      ];
+
+      // Split the topping name into individual letters and color them
+      toppingDisplay = `${finalTopping.split('').map((letter, index) => {
+        // Cycle through rainbow colors for each letter
+        const color = rainbowColors[index % rainbowColors.length];
+        return `<span style='color:${color};'>${letter}</span>`;
+      }).join('')}`;
+    } else {
+      // Regular case for other toppings
+      toppingDisplay = `<span class='${toppingColorClass}'>${finalTopping}</span>`;
+    }
+
+    // Combine flavor and topping results
+    const flavorColorClass = flavorColors[selectedFlavor];
+
+    // Array of possible congratulatory messages
+    const messages = [
+      `Congratulations! You've created a delicious masterpiece! Enjoy your <span class='${flavorColorClass}'>${selectedFlavor}</span> ice cream topped with ${toppingDisplay}. What a sweet combination!`,
+      `Well done! You've just crafted the perfect treat. Savor your <span class='${flavorColorClass}'>${selectedFlavor}</span> ice cream with a delightful topping of ${toppingDisplay}. Yummy!`,
+      `You did it! Your taste buds are in for a treat. Relish your <span class='${flavorColorClass}'>${selectedFlavor}</span> ice cream crowned with ${toppingDisplay}. Simply delicious!`,
+      `Bravo! You've just made the ultimate ice cream combo. Feast on your <span class='${flavorColorClass}'>${selectedFlavor}</span> ice cream topped with ${toppingDisplay}. Sweet and satisfying!`,
+      `Hooray! You've crafted an amazing flavor combo. Enjoy your <span class='${flavorColorClass}'>${selectedFlavor}</span> ice cream with a perfect sprinkle of ${toppingDisplay}. Ice cream perfection!`
+    ];
+
+    // Select a random message from the array
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+    // Display the randomly selected message
+    resultDiv.innerHTML = `<h2>${randomMessage}</h2>`;
+
+    // Disable the topping spin button after selection
+    document.getElementById("spinTopping").disabled = true;
+  }, true);
+});
+
+
+  </script>
+</body>
+</html>
